@@ -1,0 +1,36 @@
+{% extends 'playground/base.html' %}
+{% load static %}
+{% block content %}
+<div class="page-header">
+    <h1>
+        <a>{{ character.id_character }}</a>
+    </h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <img class="img-fluid" src="{{ character.photo.url }}" height=" 400px" alt="Photo du personnage" >
+            </div>
+            <div class="col-md-8">
+                <p>État: {{ character.etat }} </p>
+                <p>Lieu: {{ character.lieu }} </p>
+                    <form method="POST" action="{% url 'character_detail' id_character=character.id_character %}"class="post-form" style="width: 50%;">
+                        {% csrf_token %}
+                        <b>Changer {{character.id_character}} de lieu:</b> {{ form.as_ul }}
+                        <button type="submit" class="btn btn-primary">OK</button>
+                        <a href="{% url 'character_list' %}" class="btn btn-outline-light">Back</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+{% if message != ''%}
+        <div class="alert alert-danger" role="alert">
+            {{message}}
+        </div>
+    {% endif %} 
+    
+{% endblock %}
